@@ -3,4 +3,4 @@
     - manager
   become: yes
   roles:
-    - manager
+    - manager_host
