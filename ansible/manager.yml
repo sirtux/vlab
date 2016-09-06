@@ -1,0 +1,6 @@
+- name: Configure manager host
+  hosts:
+    - manager
+  become: yes
+  roles:
+    - manager

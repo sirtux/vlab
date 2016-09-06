@@ -1,0 +1,4 @@
+auto ens192
+
+iface ens160 inet static
+  address 172.16.50.1/24

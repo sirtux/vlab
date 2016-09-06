@@ -1,0 +1,14 @@
+- name: Configure interfaces file
+  template: src=interfaces dest=/etc/network/interfaces
+  notify: restart networking
+
+- name: Configure interface ens160
+  template: src=interface.ens160 dest=/etc/network/interfaces.d/interface.ens160
+  notify: restart networking
+
+- name: Configure interface ens192
+  template: src=interface.ens192 dest=/etc/network/interfaces.d/interface.ens192
+  notify: restart networking
+
+- name: Enable ip forwarding
+  sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
