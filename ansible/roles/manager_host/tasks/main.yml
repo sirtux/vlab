@@ -13,6 +13,9 @@
 - name: Enable ip forwarding
   sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
 
+- name: Disable IPv6 - yes, punish me for this one
+  sysctl: name="net.ipv6.conf.all.disable_ipv6" value=1 sysctl_set=yes state=present reload=yes
+
 - name: place sudoers file
   copy: src=sudoers dest=/etc/sudoers validate='visudo -cf %s'
 
@@ -29,6 +32,9 @@
 
 - name: enable and run dnsmasq
   service: name=dnsmasq.service enabled=yes state=started
+
+- name: copy toms key
+  template: src=tomkey dest=/var/tftpd/tomkey
 
 - name: install grub-efi
   apt: name=grub-efi-amd64-signed
@@ -52,3 +58,29 @@
     owner: dnsmasq
     group: netdev
     mode: 0444
+
+- name: create dnsmasq ubuntu-installer directory
+  file: path=/var/tftpd/ubuntu-installer state=directory owner=dnsmasq group=netdev
+
+- name: download ubuntu-installer kernel image
+  get_url:
+    url: http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
+    dest: /var/tftpd/ubuntu-installer/linux
+    mode: 0444
+    owner: dnsmasq
+    group: netdev
+
+- name: download ubuntu-installer initrd.gz image
+  get_url:
+    url: http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
+    dest: /var/tftpd/ubuntu-installer/initrd.gz
+    mode: 0444
+    owner: dnsmasq
+    group: netdev
+
+- name: copy preseed
+  template:
+    src: preseed
+    dest: /var/tftpd/preseed
+    owner: dnsmasq
+    group: netdev
