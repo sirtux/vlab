@@ -1,0 +1,9 @@
+[manager]
+manager.vlab.wirkbetrieb.net
+
+[controller]
+controller.vlab.wirkbetrieb.net
+
+[nodes]
+node1.vlab.wirkbetrieb.net
+node2.vlab.wirkbetrieb.net
