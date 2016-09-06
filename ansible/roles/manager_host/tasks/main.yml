@@ -15,3 +15,40 @@
 
 - name: place sudoers file
   copy: src=sudoers dest=/etc/sudoers validate='visudo -cf %s'
+
+- name: install dnsmasq
+  apt: name=dnsmasq state=latest cache_valid_time=3600 update_cache=yes
+
+- name: create dnsmasq tftp directory
+  file: path=/var/tftpd state=directory owner=dnsmasq group=netdev
+  notify: restart dnsmasq
+
+- name: configure dnsmasq
+  template: src=dnsmasq.conf dest=/etc/dnsmasq.conf
+  notify: restart dnsmasq
+
+- name: enable and run dnsmasq
+  service: name=dnsmasq.service enabled=yes state=started
+
+- name: install grub-efi
+  apt: name=grub-efi-amd64-signed
+
+- name: create dnsmasq grub directory
+  file: path=/var/tftpd/grub state=directory owner=dnsmasq group=netdev
+
+- name: copy grub binary
+  copy:
+    remote_src: yes
+    src: /usr/lib/grub/x86_64-efi-signed/grubnetx64.efi.signed
+    dest: /var/tftpd/grubnetx64.efi
+    owner: dnsmasq
+    group: netdev
+    mode: "0444"
+
+- name: copy grub.cfg
+  template:
+    src: grub.cfg
+    dest: /var/tftpd/grub/grub.cfg
+    owner: dnsmasq
+    group: netdev
+    mode: 0444

@@ -1,5 +1,5 @@
 [manager]
-manager.vlab.wirkbetrieb.net ansible_host=172.16.30.28
+manager.vlab.wirkbetrieb.net 
 
 [controller]
 controller.vlab.wirkbetrieb.net
