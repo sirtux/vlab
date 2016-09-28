@@ -84,3 +84,22 @@
     dest: /var/tftpd/preseed
     owner: dnsmasq
     group: netdev
+
+- name: create core directory
+  file: path=/var/tftpd/coreos state=directory owner=dnsmasq group=netdev
+
+- name: download coreos kernel image
+  get_url:
+    url: https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
+    dest: /var/tftpd/coreos/coreos_production_pxe.vmlinuz
+    mode: 0444
+    owner: dnsmasq
+    group: netdev
+
+- name: download coreos initrd image
+  get_url:
+    url: https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
+    dest: /var/tftpd/coreos/coreos_production_pxe_image.cpio.gz
+    mode: 0444
+    owner: dnsmasq
+    group: netdev

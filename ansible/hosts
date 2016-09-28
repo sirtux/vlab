@@ -7,3 +7,15 @@ controller.vlab.wirkbetrieb.net
 [nodes]
 node1.vlab.wirkbetrieb.net
 node2.vlab.wirkbetrieb.net
+
+[kubernete-deployer]
+localhost
+
+[controller:vars]
+version=release-1.1
+kubernetes_repo=https://github.com/kubernetes/kubernetes.git
+validate_yaml=False
+
+[kubernete-minions]
+node1.vlab.wirkbetrieb.net
+node2.vlab.wirkbetrieb.net

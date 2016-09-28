@@ -323,7 +323,7 @@ d-i  tasksel/first                                           multiselect  manual
 d-i  pkgsel/upgrade                                          select       full-upgrade
 d-i  pkgsel/update-policy                                    select       none
 d-i  pkgsel/updatedb                                         boolean      false
-d-i  pkgsel/include                                          string       ack-grep acl attr  curl  ethtool  gdisk git htop moreutils openssh-server screen software-properties-common tftp-hpa tmux vim whois zip 
+d-i  pkgsel/include                                          string       ack-grep acl attr  curl  ethtool  gdisk git htop moreutils openssh-server screen software-properties-common tftp-hpa tmux vim whois zip python
 
 # This is fairly safe to set, it makes grub install automatically to the MBR
 # if no other operating system is detected on the machine.

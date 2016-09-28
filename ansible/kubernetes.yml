@@ -1,0 +1,13 @@
+- name: Configure kubernetes controller
+  hosts:
+    - controller
+  become: yes
+  roles:
+    - kubernetes_controller
+
+- name: Configure kubernetes nodes
+  hosts:
+    - nodes
+  become: yes
+  roles:
+    - kubernetes_node
