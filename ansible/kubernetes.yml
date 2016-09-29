@@ -4,6 +4,8 @@
   become: yes
   roles:
     - kubernetes_controller
+  vars:
+    kubernetes_token: 123456.280ab28a3733115552372784c77eec6f93a3b457
 
 - name: Configure kubernetes nodes
   hosts:
@@ -11,3 +13,6 @@
   become: yes
   roles:
     - kubernetes_node
+  vars:
+    kubernetes_token: 123456.280ab28a3733115552372784c77eec6f93a3b457
+    kubernetes_master: 172.16.50.10

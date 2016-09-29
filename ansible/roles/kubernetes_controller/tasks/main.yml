@@ -13,4 +13,8 @@
     - kubectl
     - kubernetes-cni
 
+- name: configure initial cluster
+  command: /usr/bin/kubeadm init --token {{ kubernetes_token }}
+  args:
+    creates: /etc/kubernetes/kubelet.conf
 
